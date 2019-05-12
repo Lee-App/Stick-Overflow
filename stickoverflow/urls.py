@@ -10,5 +10,6 @@ urlpatterns = [
 	#
 
 	path('logout', auth_views.LogoutView, {'next_page' : '/'}),
-    path('login', auth_views.LoginView, {'template_name' : 'registration/login.html'}),    
+    path('login', auth_views.LoginView, {'template_name' : 'registration/login.html'}),
+	path('upload', views.upload, name = 'upload'), 
 ]

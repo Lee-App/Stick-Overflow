@@ -23,7 +23,7 @@
 </head>
 <body>
   <nav class="navbar navbar-default navbar-static-top">
-  <div class="container-fluid">    
+  <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
@@ -33,7 +33,7 @@
         <span class="icon-bar"></span>
       </button>
       <a class="navbar-brand" href="{% url 'stickoverflow:index' %}"> <span class="glyphicon glyphicon-signal"> </span> stickoverflow </a>
-      <br>      
+      <br>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
@@ -41,8 +41,8 @@
       <ul class="nav navbar-nav navbar-right">
         {% if user.is_active %}
         <li><a href="{%url 'login' %}"> <span class="glyphicon glyphicon-heart"></span> {{user.username}}</a></li>
-        <li><a href="upload">파일 업로드</a></li>
-        <li><a href="{% url 'logout' %}">로그아웃</a></li>        
+        <li><a href="{% url 'upload' %}">파일 업로드</a></li>
+        <li><a href="{% url 'logout' %}">로그아웃</a></li>
         {% else %}
         <li><a href="{% url 'login' %}"> <span class="glyphicon glyphicon-user"></span> 로그인</a></li>
         <li><a href="{% url 'admin:index' %}">관리자</a></li>
@@ -52,9 +52,9 @@
   </div><!-- /.container-fluid -->
 </nav>
   <div class="container">
-    <div>            
-      {% block content %}      
-      {% endblock %}      
+    <div>
+      {% block content %}
+      {% endblock %}
     </div>
   </div>
   <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
