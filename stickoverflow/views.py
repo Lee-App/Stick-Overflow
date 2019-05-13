@@ -18,12 +18,15 @@ from django.core.files.storage import FileSystemStorage
 def upload(request):
 	context = {}
 	user_id = "test"
+	fs = FileSystemStorage() # 같은 파일일 경우 알아서 안 덮어쓰게 처리해줌.
 	if request.method == 'POST':
-		uploaded_file = request.FILES['document']
-		fs = FileSystemStorage() # 같은 파일일 경우 알아서 안 덮어쓰게 처리해줌.
-		name = fs.save(user_id + '/' + uploaded_file.name, uploaded_file)
-		dir_list, file_list = fs.listdir(user_id + '/')
-		context['url'] = file_list
+		if request.FILES['document']:
+			uploaded_file = request.FILES['document']
+			name = fs.save(user_id + '/' + uploaded_file.name, uploaded_file)
+
+	dir_list, file_list = fs.listdir(user_id + '/')
+	context['url'] = file_list
+
 	return render(request, 'stickoverflow/upload.html', context) # template(기본값)의 stickoverflow안의 upload.html을 찾아감
 
 
