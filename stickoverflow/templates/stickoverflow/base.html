@@ -45,7 +45,7 @@
         <li><a href="{% url 'logout' %}">로그아웃</a></li>
         {% else %}
         <li><a href="{% url 'login' %}"> <span class="glyphicon glyphicon-user"></span> 로그인</a></li>
-        <li><a href="{% url 'admin:index' %}">관리자</a></li>
+        <li><a href="{% url 'signup' %}">회원가입</a></li>
         {% endif %}
       </ul>
     </div><!-- /.navbar-collapse -->
