@@ -36,6 +36,9 @@ urlpatterns = [
     path('accounts/signup', stickoverflow_views.CreateUserView.as_view(), name = 'signup'),
     path('accounts/login/done', stickoverflow_views.RegisteredView.as_view(), name = 'create_user_done'),
     path('upload/', stickoverflow_views.upload, name = 'upload'), # views.py의 upload를 찾아감.
+
+    # Product 추가
+    path('aboutus', stickoverflow_views.AboutUs.as_view(), name = 'aboutus'),
 ]
 
 # file_upload part

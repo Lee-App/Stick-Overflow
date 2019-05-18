@@ -37,3 +37,6 @@ class RegisteredView(TemplateView): # generic view중에 TemplateView를 상속�
 
 class IndexView(TemplateView):
 	template_name = 'stickoverflow/index.html'
+
+class AboutUs(TemplateView):
+	template_name = 'stickoverflow/aboutus.html'
