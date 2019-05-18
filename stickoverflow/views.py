@@ -17,12 +17,17 @@ from django.core.files.storage import FileSystemStorage
 # file_upload part
 def upload(request):
 	context = {}
+	user_id = "test"
+	fs = FileSystemStorage() # 같은 파일일 경우 알아서 안 덮어쓰게 처리해줌.
 	if request.method == 'POST':
-		uploaded_file = request.FILES['document']
-		fs = FileSystemStorage() # 같은 파일일 경우 알아서 안 덮어쓰게 처리해줌.
-		name = fs.save(uploaded_file.name, uploaded_file)
-		context['url'] = fs.url(name)		
-	return render(request, 'stickoverflow/upload.html', context) # template(기본값)의 stickoverflow안의 upload.html을 찾아감	
+		if request.FILES['document']:
+			uploaded_file = request.FILES['document']
+			name = fs.save(user_id + '/' + uploaded_file.name, uploaded_file)
+
+	dir_list, file_list = fs.listdir(user_id + '/')
+	context['url'] = file_list
+
+	return render(request, 'stickoverflow/upload.html', context) # template(기본값)의 stickoverflow안의 upload.html을 찾아감
 
 
 # CBV (Class Based View 작성!)
@@ -37,6 +42,9 @@ class RegisteredView(TemplateView): # generic view중에 TemplateView를 상속�
 
 class IndexView(TemplateView):
 	template_name = 'stickoverflow/index.html'
+<<<<<<< HEAD
 
 class AboutUs(TemplateView):
 	template_name = 'stickoverflow/aboutus.html'
+=======
+>>>>>>> cb6b9b968720fd2dabd07ac685117c967fa9908c

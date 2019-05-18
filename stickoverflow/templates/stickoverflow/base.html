@@ -22,8 +22,13 @@
   <![endif]-->
 </head>
 <body>
+<<<<<<< HEAD
   <nav class="navbar navbar-default navbar-static-top" style="position:fixed; width: 100%">
   <div class="container-fluid">    
+=======
+  <nav class="navbar navbar-default navbar-static-top">
+  <div class="container-fluid">
+>>>>>>> cb6b9b968720fd2dabd07ac685117c967fa9908c
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
@@ -33,17 +38,23 @@
         <span class="icon-bar"></span>
       </button>
       <a class="navbar-brand" href="{% url 'stickoverflow:index' %}"> <span class="glyphicon glyphicon-signal"> </span> stickoverflow </a>
-      <br>      
+      <br>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse">
       <ul class="nav navbar-nav navbar-right">
         {% if user.is_active %}
+<<<<<<< HEAD
         <li><a href="{% url 'aboutus' %}">About Us</a></li> <!-- about us page -->
         <li><a href="upload">파일 업로드</a></li>
         <li><a href="{%url 'login' %}"> <span class="glyphicon glyphicon-heart"></span> {{user.username}}</a></li>        
         <li><a href="{% url 'logout' %}">로그아웃</a></li>        
+=======
+        <li><a href="{%url 'login' %}"> <span class="glyphicon glyphicon-heart"></span> {{user.username}}</a></li>
+        <li><a href="{% url 'upload' %}">파일 업로드</a></li>
+        <li><a href="{% url 'logout' %}">로그아웃</a></li>
+>>>>>>> cb6b9b968720fd2dabd07ac685117c967fa9908c
         {% else %}
 
         <li><a href="{% url 'aboutus' %}">About Us</a></li> <!-- about us page -->
@@ -55,11 +66,17 @@
   </div><!-- /.container-fluid -->
 </nav>
   <div class="container">
+<<<<<<< HEAD
     <br><br>
     <div>     
       {% block content %}
 
       {% endblock %}      
+=======
+    <div>
+      {% block content %}
+      {% endblock %}
+>>>>>>> cb6b9b968720fd2dabd07ac685117c967fa9908c
     </div>
   </div>
 

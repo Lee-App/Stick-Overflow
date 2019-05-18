@@ -4,10 +4,13 @@
 <h2>Upload</h2>
 <form method = "post" enctype="multipart/form-data">
 	{% csrf_token %}
-	<input type = "file" name = "document">
+	<input type = "file" name = "document" required>
 	<button type = "submit">Upload file</button>
 </form>
 {% if url %}
-	<p>Uploaded files: <a href = "{{ url }}">{{ url }}</a></p>
+	<p>File List ---- test</p>
+	{% for file in url %}
+			<li>{{file}}</li>
+	{% endfor %}
 {% endif %}
 {% endblock %}
