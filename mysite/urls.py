@@ -21,6 +21,7 @@ from stickoverflow import views as stickoverflow_views
 # file_upload part
 from django.conf import settings
 from django.conf.urls.static import static
+from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -29,12 +30,13 @@ urlpatterns = [
 
     # 수정이 필요할지도 모르겠다.
     # 계속해서 기존의 url형식을 path로 바꿔줘야 하니...
-    path('', include('django.contrib.auth.urls')),
+    path('accounts/', include('django.contrib.auth.urls')),
+    path('accounts/login', stickoverflow_views.LoginView.as_view(), name = 'login'),
 
     # 회원가입
     # 회원가입 url이 따로 장고의 auth.urls에 없어서 구현해줘야한다.
     path('accounts/signup', stickoverflow_views.CreateUserView.as_view(), name = 'signup'),
-    path('accounts/login/done', stickoverflow_views.RegisteredView.as_view(), name = 'create_user_done'),
+    path('accounts/signup/done', stickoverflow_views.RegisteredView.as_view(), name = 'create_user_done'),
     path('upload/', stickoverflow_views.upload, name = 'upload'), # views.py의 upload를 찾아감.
 ]
 
