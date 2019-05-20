@@ -8,22 +8,93 @@
 	 height : 100px;
 	 margin:50px;
 	}
+
+	.introduce1 {text-align: left; 
+		position: relative;
+		width: 100%;
+		height: 200px;
+		padding: 20px;
+	}
+	.introduce2 {text-align: right;
+		position: relative;
+		width: 100%;
+		height: 200px;
+		padding: 20px;
+	}
+	.introduce3 {text-align: left; 
+		position: relative;
+		width: 100%;
+		height: 200px;
+		padding: 20px;
+	}
+	.inner-body-image {text-align: center}
+	.inner-main {text-align: center}
+
+	.introduce1-image {float:left;}
+	.introduce1-body {float:left; padding:20px;}
+
+	.introduce2-image {float:right;}
+	.introduce2-body {float:right; padding:20px;}
+
+	.introduce3-image {float:left;}
+	.introduce3-body {float:left; padding:20px;}
+
+	.intro-head {font-size: xx-large;
+
+	}
+	.intro-body {font-size: medium;
+	}
 </style>
 
 <div class = "inner">
-	<center>
+	<div class = "inner-main">
 		<h1>
 			Stick Overflow
 		</h1>
 		<h3>
 			Analysis Your Data<br>
 		</h3>
-	</center>
+	</div>
+
+	<div class = "inner-body-image">		
+		<img class = "img_setting"; src = "https://ifh.cc/g/CRhiI.png"></img>
+		<img class = "img_setting"; src = "https://ifh.cc/g/oZE3J.png"></img>
+		<img class = "img_setting"; src = "https://ifh.cc/g/1jCwU.png"></img>
+	</div>
+
+	<div class = "introduce1">
+		<div class = "introduce1-image">
+			<img class = "img_setting"; src = "https://ifh.cc/g/CRhiI.png">
+		</img>			
+		</div>
+
+		<div class = "introduce1-body">
+			<a class = "intro-head">It's Free to Use!</a><br>
+			<a class = "intro-body">We provide this platform for free.</a>
+		</div>
+	</div>
+
+	<div class = "introduce2">		
+		<div class = "introduce2-image">
+			<img class = "img_setting"; src = "https://ifh.cc/g/oZE3J.png">
+		</img>
+		</div>
+
+		<div class = "introduce2-body">
+			<a class = "intro-head">It's able to download! as PDF.</a><br>
+			<a class = "intro-body">If you want to show your analysis output as PDF or something. <br>you can click the download button to download your result.</a>
+		</div>
+	</div>
+	<div class = "introduce3">
+		<div class = "introduce3-image">
+			<img class = "img_setting"; src = "https://ifh.cc/g/1jCwU.png"></img>
+		</div>
+
+		<div class ="introduce3-body">
+			<a class = "intro-head">Re-Useful!</a><br>
+			<a class = "intro-body">Your data and analysised data is saving on your account. <br>so, whenever you want that data or PDF, you can download and reuse!</a>
+		</div>
+	</div>
 </div>
-<center>
-	<img class = "img_setting"; src = "https://ifh.cc/g/CRhiI.png"></img>
-	<img class = "img_setting"; src = "https://ifh.cc/g/oZE3J.png"></img>
-	<img class = "img_setting"; src = "https://ifh.cc/g/1jCwU.png"></img>
-</center>
 
 {% endblock %}
