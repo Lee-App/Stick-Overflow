@@ -33,7 +33,7 @@ def upload(request):
 # CBV (Class Based View 작성!)
 class CreateUserView(CreateView): # generic view중에 CreateView를 상속받는다.
     template_name = 'registration/signup.html' # 템플릿은?
-    form_class =  CreateUserForm # 푸슨 폼 사용? >> 내장 회원가입 폼을 커스터마지징 한 것을 사용하는 경우
+    form_class =  CreateUserForm # 푸슨 폼 사용? >> 내장 회원가입 폼을 커스터마이징 한 것을 사용하는 경우
     # form_class = UserCreationForm >> 내장 회원가입 폼 사용하는 경우
     success_url = reverse_lazy('create_user_done') # 성공하면 어디로?
 
@@ -42,9 +42,7 @@ class RegisteredView(TemplateView): # generic view중에 TemplateView를 상속�
 
 class IndexView(TemplateView):
 	template_name = 'stickoverflow/index.html'
-<<<<<<< HEAD
-
 class AboutUs(TemplateView):
 	template_name = 'stickoverflow/aboutus.html'
-=======
->>>>>>> cb6b9b968720fd2dabd07ac685117c967fa9908c
+class Result_View(TemplateView):
+	template_name = 'stickoverflow/result_view.html'
