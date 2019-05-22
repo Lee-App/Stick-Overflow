@@ -1,23 +1,24 @@
-from django.contrib.auth.models import User
-from django.contrib.auth.forms import UserCreationForm
+from .models import User
 from django import forms
 
-class CreateUserForm(UserCreationForm): # 내장 회원가입 폼을 상속받아서 확장한다.
-    email = forms.EmailField(required=True) # 이메일 필드 추가
+# 회원가입 폼
+class CreateUserForm(forms.ModelForm):
+    user_id = forms.CharField(max_length = 50, label = 'id', required = True)
+    password = forms.CharField(max_length = 50, label = 'password', widget = forms.PasswordInput, required = True)
+    confirm_password = forms.CharField(max_length = 50, label = 'confirm password', widget = forms.PasswordInput, required = True)
+    user_name = forms.CharField(max_length = 50, label = 'name', required = True)
+    email = forms.EmailField(label = 'E-Mail', required = True)
+    department = forms.CharField(max_length = 50, label = 'department')
 
     class Meta:
         model = User
-        fields = ("username", "email", "password1", "password2")
+        fields = ("user_id", "password", "confirm_password", "user_name", "email", "department")
 
-    def save(self, commit=True): # 저장하는 부분 오버라이딩
-        user = super(CreateUserForm, self).save(commit=False) # 본인의 부모를 호출해서 저장하겠다.
-        user.email = self.cleaned_data["email"]
-        if commit:
-            user.save()
-        return user
 
-# file_upload 파트
-class DocumentForm(forms.Form):
-    docfile = forms.FileField(
-        label = 'Select a file',
-        help_text = 'max. 42 megabytes')
+class LoginForm(forms.Form):
+    user_id = forms.CharField(max_length = 50, label = 'id', required = True)
+    password = forms.CharField(max_length = 50, label = 'password', widget = forms.PasswordInput, required = True)
+
+
+class UploadForm(forms.Form):
+    file = forms.FileField()

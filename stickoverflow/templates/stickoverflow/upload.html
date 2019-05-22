@@ -1,16 +1,22 @@
 {% extends 'stickoverflow/base.html' %}
 {% block content %}
 
+{% if request.session.user %}
 <h2>Upload</h2>
-<form method = "post" enctype="multipart/form-data">
+<form method = "post" enctype="multipart/form-data" action="{% url 'upload' %}">
 	{% csrf_token %}
-	<input type = "file" name = "document" required>
-	<button type = "submit">Upload file</button>
+	{{ form.as_p }}
+	<button type = "submit">Upload File</button>
 </form>
-{% if url %}
-	<p>File List ---- test</p>
-	{% for file in url %}
-			<li>{{file}}</li>
+{% if file_list %}
+<h3>File List ---- {{ request.session.user }}</h3>
+	{% for file in file_list %}
+	<li>{{file}}</li>
 	{% endfor %}
 {% endif %}
+
+{% else %}
+<p>로그인이 필요합니다!</p>
+{% endif %}
+
 {% endblock %}
