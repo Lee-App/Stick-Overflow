@@ -8,15 +8,21 @@ class User(models.Model):
     password = models.CharField(max_length = 50, help_text = 'Enter password')
     user_name = models.CharField(max_length = 50, help_text = 'Enter user name')
     email = models.CharField(max_length = 100, help_text = 'Enter email')
-    department = models.CharField(max_length = 50, help_text = 'Enter department')
+    department = models.CharField(max_length = 50, help_text = 'Enter department', null = True)
 
     input_id = models.CharField(max_length = 50)
     input_ip = models.CharField(max_length = 15)
-    input_data = models.DateTimeField()
+    input_data = models.DateTimeField(auto_now=True)
 
     update_id = models.CharField(max_length = 50)
     update_ip = models.CharField(max_length = 15)
-    update_data = models.DateTimeField()
+    update_data = models.DateTimeField(auto_now=True)
+
+    def check_password(self, password):
+        return self.password == password
+
+    def __str__(self):
+        return self.user_id
 
 # FILE Database
 class File(models.Model):
@@ -33,23 +39,3 @@ class Result(models.Model):
     result_no = models.IntegerField()
     analysis_code = models.IntegerField()
     save_code = models.IntegerField()
-
-# /DB 테이블 만들어 보려고 시도한 흔적임.
-
-# class User(models.Model):
-# 	db_id = models.CharField(max_length=45) # PK
-# 	db_pwd = models.CharField(max_length=45)
-# 	db_user_name = models.CharField(max_length=45)
-# 	db_email = models.CharField(max_length=45)
-# 	db_company = models.CharField(max_length=45) # IS NULL
-
-# class File(models.Model):
-# 	db_id = models.CharField(max_length=45) # FK
-# 	db_fid = models.IntegerField(default=0) # PK
-# 	db_path = models.CharField(max_length=200)
-
-# class Result(models.Model):
-# 	db_fid = models.IntegerField(default=0) # PK, FK
-# 	db_result_fid = models.IntegerField(default=0) # PK, FK
-
-# DB 테이블 만들어 보려고 시도한 흔적임./
