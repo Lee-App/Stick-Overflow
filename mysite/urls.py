@@ -41,6 +41,7 @@ urlpatterns = [
 
     # Product 추가
     path('aboutus', stickoverflow_views.AboutUs.as_view(), name = 'aboutus'),
+    path('result_view', stickoverflow_views.Result_View.as_view(), name = 'result_view'),
 ]
 
 # file_upload part

@@ -65,6 +65,7 @@ class RegisteredView(TemplateView):
 
 class IndexView(TemplateView):
 	template_name = 'stickoverflow/index.html'
-
 class AboutUs(TemplateView):
 	template_name = 'stickoverflow/aboutus.html'
+class Result_View(TemplateView):
+	template_name = 'stickoverflow/result_view.html'
