@@ -31,14 +31,12 @@ class CreateUserView(CreateView):
 		context = {'form': form}
 		return render(request, 'registration/signup.html', context)
 
-<<<<<<< HEAD
 # CBV (Class Based View 작성!)
 class CreateUserView(CreateView): # generic view중에 CreateView를 상속받는다.
     template_name = 'registration/signup.html' # 템플릿은?
-    form_class =  CreateUserForm # 푸슨 폼 사용? >> 내장 회원가입 폼을 커스터마이징 한 것을 사용하는 경우
+    form_class =  CreateUserForm # 무슨 폼 사용? >> 내장 회원가입 폼을 커스터마이징 한 것을 사용하는 경우
     # form_class = UserCreationForm >> 내장 회원가입 폼 사용하는 경우
     success_url = reverse_lazy('create_user_done') # 성공하면 어디로?
-=======
 	def post(self, request, *args, **kwargs):
 		form = CreateUserForm(data = request.POST)
 		if form.is_valid():
@@ -67,7 +65,6 @@ class LoginView(View):
 
 
 from django.views.generic.base import TemplateView
->>>>>>> 5cc2631da73735b5ea2b3f4fdb6039c4596d145a
 
 class RegisteredView(TemplateView):
     template_name = 'registration/signup_done.html'
