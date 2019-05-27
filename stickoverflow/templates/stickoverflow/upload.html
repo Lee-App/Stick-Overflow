@@ -13,4 +13,25 @@
 			<li>{{file}}</li>
 	{% endfor %}
 {% endif %}
+
+<title>File_Table</title>
+<table border = "1">
+	<th>File Name</th>
+	<th>File Size</th>
+	<th>File Type</th>
+	<th>Date</th>
+	<th>Select</th>
+
+	<tr>
+		<td>a<a src = 'stick_overflow/media/{{file}}'></td>
+		<td>b</td>
+		<td>c</td>
+		<td>d</td>
+		<td>e</td>
+	</tr>
+
+{% for file in files %}
+<h1 src = 'stick_overflow/media/{{file}}' />
+{% endfor %}
+
 {% endblock %}

@@ -24,6 +24,8 @@ from django.urls import reverse_lazy
 from .forms import CreateUserForm #, LoginForm
 from .models import User
 
+import os
+
 # 회원가입 뷰
 class CreateUserView(CreateView):
 	def get(self, request, *args, **kwargs):
@@ -75,3 +77,8 @@ class AboutUs(TemplateView):
 	template_name = 'stickoverflow/aboutus.html'
 class Result_View(TemplateView):
 	template_name = 'stickoverflow/result_view.html'
+
+def file_list(request):
+	path = "/stick_overflow/media" # 로컬 경로여서 이 부분에서 못 불러올 수 있습니다.
+	flist = os.listdir(path)
+	return render_to_resposnse('upload.html', {'file_list': flist})
