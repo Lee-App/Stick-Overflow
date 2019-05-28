@@ -24,24 +24,24 @@ from django.conf.urls.static import static
 from django.contrib.auth import views as auth_views
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', stickoverflow_views.IndexView.as_view()),
-    path('stickoverflow', include('stickoverflow.urls')),
+    # 메인 페이지
+    path('', stickoverflow_views.IndexView.as_view(), name = 'index'),
 
-    # 수정이 필요할지도 모르겠다.
-    # 계속해서 기존의 url형식을 path로 바꿔줘야 하니...
-    path('accounts/', include('django.contrib.auth.urls')),
-    path('accounts/login', stickoverflow_views.LoginView.as_view(), name = 'login'),
+    # 로그인
+    path('accounts/login/', stickoverflow_views.LoginView.as_view(), name = 'login'),
 
     # 회원가입
-    # 회원가입 url이 따로 장고의 auth.urls에 없어서 구현해줘야한다.
-    path('accounts/signup', stickoverflow_views.CreateUserView.as_view(), name = 'signup'),
-    path('accounts/signup/done', stickoverflow_views.RegisteredView.as_view(), name = 'create_user_done'),
-    path('upload/', stickoverflow_views.upload, name = 'upload'), # views.py의 upload를 찾아감.
+    path('accounts/signup/', stickoverflow_views.CreateUserView.as_view(), name = 'signup'),
+    path('accounts/signup/done/', stickoverflow_views.RegisteredView.as_view(), name = 'create_user_done'),
+
+    path('accounts/logout/', stickoverflow_views.LogoutView.as_view(), name = 'logout'),
+
+    # 업로드
+    path('upload/', stickoverflow_views.UploadView.as_view(), name = 'upload'),
 
     # Product 추가
-    path('aboutus', stickoverflow_views.AboutUs.as_view(), name = 'aboutus'),
-    path('result_view', stickoverflow_views.Result_View.as_view(), name = 'result_view'),
+    path('aboutus/', stickoverflow_views.AboutUs.as_view(), name = 'aboutus'),
+    path('result_view/', stickoverflow_views.ResultView.as_view(), name = 'result_view'),
 ]
 
 # file_upload part
