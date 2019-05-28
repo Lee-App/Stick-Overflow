@@ -8,7 +8,6 @@ from django.urls import reverse_lazy
 
 from .models import User
 
-
 from django.views.generic.edit import CreateView
 from .forms import CreateUserForm
 
@@ -59,6 +58,7 @@ class CreateUserView(CreateView):
 
 from django.views.generic.edit import View
 from .forms import UploadForm
+from .models import File
 
 class UploadView(View):
 	def get(self, request, *args, **kwargs):
@@ -72,7 +72,7 @@ class UploadView(View):
 	# file_upload part
 	def upload(self, request):
 		fs = FileSystemStorage()
-		form = UploadForm()
+		form = UploadForm(data = request.POST)
 		context = {'form': form }
 		user_id = ''
 
@@ -88,9 +88,11 @@ class UploadView(View):
 				size = fs.size(file_full_name)
 				# DB
 				file_name = uploaded_file
-				file_path = MEDIA_URL + '/' + user_id + '/'
-				file_description = form.cleaned_data['description']
+				file_path = '/media/' + user_id + '/'
+				file_description = request.POST['description']
 				print(file_name, file_path, file_description)
+				file = File(user_id = user_id, file_no = 123, file_name = file_name, file_path = file_path, file_description = file_description)
+				file.save()
 				del request.FILES['file']
 
 		if user_id:
