@@ -125,6 +125,14 @@ class UploadView(View):
 		if "user" in request.session:
 			user_id = request.session['user']
 
+		if user_id:
+			if not fs.exists(user_id + '/'):
+				mkdir(fs.path(user_id + '/'))
+
+			dir_list, file_list = fs.listdir(user_id + '/')
+
+
+		print(File.objects.all()[1].file_no)
 		if request.method == 'POST':
 			if request.FILES['file']:
 				uploaded_file = request.FILES['file']
@@ -133,19 +141,15 @@ class UploadView(View):
 				# view_table
 				size = fs.size(file_full_name)
 				# DB
-				file_name = uploaded_file
+				file_name = uploaded_file.name
 				file_path = '/media/' + user_id + '/'
 				file_description = request.POST['description']
-				print(file_name, file_path, file_description)
-				file = File(user_id = user_id, file_no = 123, file_name = file_name, file_path = file_path, file_description = file_description)
+				file = File(user_id = user_id, file_no = len(file_list), file_name = file_name, file_path = file_path, file_description = file_description)
 				file.save()
+				dir_list, file_list = fs.listdir(user_id + '/')
 				del request.FILES['file']
 
-		if user_id:
-			if not fs.exists(user_id + '/'):
-				mkdir(fs.path(user_id + '/'))
-
-			dir_list, file_list = fs.listdir(user_id + '/')
+		if file_list:
 			context['file_list'] = file_list
 
 		return context
