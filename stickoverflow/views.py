@@ -208,6 +208,8 @@ class LogoutView(View):
 		request.session['user'] = ''
 		request.session.modified = True
 
+
+
 from django.views.generic.base import TemplateView
 
 class RegisteredView(TemplateView):
@@ -221,3 +223,61 @@ class AboutUs(TemplateView):
 
 class ResultView(TemplateView):
 	template_name = 'stickoverflow/result_view.html'
+
+# TESTING PAGE
+#class ResultViewTest(TemplateView):
+#	template_name = 'stickoverflow/result_view_test.html'
+
+class ResultViewTest(View):
+	def get(self, request, *args, **kwargs):
+		context = self.upload(request)
+		return render(request, 'stickoverflow/result_view_test.html', context)
+
+	def post(self, request, *args, **kwargs):
+		context = self.upload(request)
+		return render(request, 'stickoverflow/result_view_test.html', context)
+
+	# file_upload part
+	def upload(self, request):
+		# print(File.objects.all().delete())
+		fs = FileSystemStorage()
+		form = UploadForm(data = request.POST)
+		context = {'form': form }
+		user_id = ''
+
+		if "user" in request.session:
+			user_id = request.session['user']
+
+		if user_id and not fs.exists(user_id + '/'):
+			mkdir(fs.path(user_id + '/'))
+
+		if request.method == 'POST' and request.FILES['file']:
+			# File Save
+			uploaded_file = request.FILES['file']
+			file_full_name = '{}/{}'.format(user_id, uploaded_file)
+			real_name = fs.save(file_full_name, uploaded_file)
+			# DB
+			file_name = real_name[len(user_id) + 1:]
+			file_path = '{}/'.format(user_id)
+			file_description = request.POST['description']
+			file = File(user_id = user_id, file_no = len(File.objects.all()), file_name = file_name, file_path = file_path, file_description = file_description)
+			file.save()
+			del request.FILES['file']
+
+		files = File.objects.filter(user_id__iexact = user_id)
+
+		if files:
+			file_list = []
+
+			for f in files:
+				file_name = '{} <{}>'.format(f.file_name[:-4], f.file_no)
+				file_type = f.file_name[-3:]
+				file_desc = f.file_description
+
+				tmp = [file_name, file_type, file_desc]
+				file_list.append(tmp)
+
+			context['file_list'] = file_list
+
+
+		return context
