@@ -102,6 +102,8 @@ class CreateUserView(CreateView): # generic view중에 CreateView를 상속받�
 			ip = request.META.get('REMOTE_ADDR')
 		return ip
 
+import os
+import time
 from django.views.generic.edit import View
 from .forms import UploadForm
 from .models import File
@@ -151,6 +153,18 @@ class UploadView(View):
 
 		if file_list:
 			context['file_list'] = file_list
+
+			file_info_list = []
+			for f in file_list:
+				file_info_list.append([f.split('.')[0],f.split('.')[1]])
+				#file_info_list.append(f.split('.')[1])
+
+				#temp_path = '/media/' + user_id + '/' + f.split('.')[0]
+				#file_info_list.append(os.path.getsize(temp_path))
+				#file_info_list.append(time.ctime(os.path.getmtime(temp_path)))
+
+			context['file_info_list'] = file_info_list
+
 
 		return context
 

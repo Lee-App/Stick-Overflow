@@ -26,3 +26,7 @@ Adding Main Page design.(now working)
 * 최소한 수요일(05/22)부터 제작 예정
 * 책 구매 예정(파이썬 웹 프로그래밍:실전편)
 ------------------
+
+2019-05-29
+### 깃 충돌체크 및 클론 체크
+![0529](https://user-images.githubusercontent.com/39876295/58512731-c3d5d280-81d8-11e9-95f6-38a2ff6ed763.JPG)

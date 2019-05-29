@@ -46,8 +46,8 @@
       <ul class="nav navbar-nav navbar-right">
         {% if request.session.user %}
         <li><a href="{% url 'aboutus' %}">About Us</a></li> <!-- about us page -->
-        <li><a href="{% url 'login' %}"> <span class="glyphicon glyphicon-heart"></span> {{ request.session.user }}</a></li>
         <li><a href="{% url 'upload' %}">파일 업로드</a></li>
+        <li><a href="{% url 'login' %}"> <span class="glyphicon glyphicon-heart"></span> {{ request.session.user }}</a></li>
         <li><a href="{% url 'logout' %}">로그아웃</a></li>
         {% else %}
         <li><a href="{% url 'aboutus' %}">About Us</a></li> <!-- about us page -->
