@@ -2,6 +2,11 @@
 {% block content %}
 
 {% if request.session.user %}
+<meta charset="utf-8">
+
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<script src="https://www.w3schools.com/lib/w3.js"></script>
+
 <h2>Upload</h2>
 <form method = "post" enctype="multipart/form-data" action="{% url 'upload' %}">
 	{% csrf_token %}
@@ -9,39 +14,28 @@
 	<button type = "submit">Upload File</button>
 </form>
 {% if file_list %}
-<h3>File List ---- {{ request.session.user }}</h3>
-	{% for file in file_list %}
-	<li>{{file}}</li>
-	{% endfor %}
+<table id="id01" class="w3-table-all">
+	<tr>
+		<th>File Name</th>
+		<th>File Type</th>
+		<th>File Description</th>
+		<th>Select</th>
+	</tr>
+{% for file in file_list %}
+	<tr>
+		<td>{{ file.0 }}</td>
+		<td>{{ file.1 }}</td>
+		<td>{{ file.2 }}</td>
+		<td><input type = "checkbox" {{checked}}></td>
+	</tr>
+{% endfor %}
+
+
+</table>
 {% endif %}
 
 {% else %}
 <p>로그인이 필요합니다!</p>
 {% endif %}
-
-<title>W3.JS</title>
-<meta charset="utf-8">
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<script src="https://www.w3schools.com/lib/w3.js"></script>
-
-<table id="id01" class="w3-table-all">
-  <tr>
-    <th>File Name</th>
-    <!--<th>File Size</th>-->
-    <th>File Type</th>
-		<th>Date</th>
-		<th>Select</th>
-  </tr>
-{% for file in file_info_list %}
-  <tr>
-    <td>{{ file.0 }}</td>
-		<td>{{ file.1 }}</td>
-		<td>Empty</td>
-		<td><input type = "checkbox" {{checked}}></td>
-  </tr>
-	{% endfor %}
-
-
-</table>
 
 {% endblock %}

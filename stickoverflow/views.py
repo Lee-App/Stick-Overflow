@@ -119,6 +119,7 @@ class UploadView(View):
 
 	# file_upload part
 	def upload(self, request):
+		# print(File.objects.all().delete())
 		fs = FileSystemStorage()
 		form = UploadForm(data = request.POST)
 		context = {'form': form }
@@ -127,39 +128,36 @@ class UploadView(View):
 		if "user" in request.session:
 			user_id = request.session['user']
 
-		if request.method == 'POST':
-			if request.FILES['file']:
-				uploaded_file = request.FILES['file']
-				file_full_name = user_id + '/' + uploaded_file.name
-				fs.save(file_full_name, uploaded_file)
-				# view_table
-				size = fs.size(file_full_name)
-				# DB
-				file_name = uploaded_file
-				file_path = '/media/' + user_id + '/'
-				file_description = request.POST['description']
-				print(file_name, file_path, file_description)
-				file = File(user_id = user_id, file_no = 123, file_name = file_name, file_path = file_path, file_description = file_description)
-				file.save()
-				del request.FILES['file']
+		if user_id and not fs.exists(user_id + '/'):
+			mkdir(fs.path(user_id + '/'))
 
-		if user_id:
-			if not fs.exists(user_id + '/'):
-				mkdir(fs.path(user_id + '/'))
+		if request.method == 'POST' and request.FILES['file']:
+			# File Save
+			uploaded_file = request.FILES['file']
+			file_full_name = '{}/{}'.format(user_id, uploaded_file)
+			real_name = fs.save(file_full_name, uploaded_file)
+			# DB
+			file_name = real_name[len(user_id) + 1:]
+			file_path = '{}/'.format(user_id)
+			file_description = request.POST['description']
+			file = File(user_id = user_id, file_no = len(File.objects.all()), file_name = file_name, file_path = file_path, file_description = file_description)
+			file.save()
+			del request.FILES['file']
 
-			dir_list, file_list = fs.listdir(user_id + '/')
+		files = File.objects.filter(user_id__iexact = user_id)
+
+		if files:
+			file_list = []
+
+			for f in files:
+				file_name = '{} <{}>'.format(f.file_name[:-4], f.file_no)
+				file_type = f.file_name[-3:]
+				file_desc = f.file_description
+
+				tmp = [file_name, file_type, file_desc]
+				file_list.append(tmp)
+
 			context['file_list'] = file_list
-
-			file_info_list = []
-			for f in file_list:
-				file_info_list.append([f.split('.')[0],f.split('.')[1]])
-				#file_info_list.append(f.split('.')[1])
-
-				#temp_path = '/media/' + user_id + '/' + f.split('.')[0]
-				#file_info_list.append(os.path.getsize(temp_path))
-				#file_info_list.append(time.ctime(os.path.getmtime(temp_path)))
-
-			context['file_info_list'] = file_info_list
 
 
 		return context
@@ -223,9 +221,3 @@ class AboutUs(TemplateView):
 
 class ResultView(TemplateView):
 	template_name = 'stickoverflow/result_view.html'
-
-
-def file_list(request):
-	path = "/stick_overflow/media" # 로컬 경로여서 이 부분에서 못 불러올 수 있습니다.
-	flist = os.listdir(path)
-	return render_to_resposnse('upload.html', {'file_list': flist})

@@ -22,4 +22,4 @@ class LoginForm(forms.Form):
 
 class UploadForm(forms.Form):
     file = forms.FileField()
-    description = forms.CharField(max_length = 100, label = 'file description')
+    description = forms.CharField(max_length = 200, label = 'file description')
