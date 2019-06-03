@@ -7,9 +7,8 @@
   google.charts.setOnLoadCallback(drawVisualization); // 여기서 drawVisualization은 아래에서 선언할 함수 명이다.
 
   function drawVisualization() {
-    //JSON.parse(str)
-    var str = '{ "chartType": "LineChart", "dataTable": [["A", "Germany"], ["B", 700], ["C", 800], ["D", 600], ["E", 100]], "options": {"title": "Countries"}, "containerId": "chart_div" }';
-    var obj = JSON.parse(str);
+    var str = '{{ graph_data }}';
+    var obj = JSON.parse(str.replace(/&quot;/g,'"'));
     var wrapper = new google.visualization.ChartWrapper(obj);
 
     wrapper.draw();

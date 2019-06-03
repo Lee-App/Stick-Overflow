@@ -152,8 +152,9 @@ class UploadView(View):
 				file_name = '{} <{}>'.format(f.file_name[:-4], f.file_no)
 				file_type = f.file_name[-3:]
 				file_desc = f.file_description
+				file_no = f.file_no
 
-				tmp = [file_name, file_type, file_desc]
+				tmp = [file_name, file_type, file_desc, file_no]
 				file_list.append(tmp)
 
 			context['file_list'] = file_list
@@ -223,60 +224,34 @@ class AboutUs(TemplateView):
 class ResultView(TemplateView):
 	template_name = 'stickoverflow/result_view.html'
 
-# TESTING PAGE
-#class ResultViewTest(TemplateView):
-#	template_name = 'stickoverflow/result_view_test.html'
+from django.shortcuts import redirect
+from .statistics_model import result, get_graph_data
 
 class ResultViewTest(View):
 	def get(self, request, *args, **kwargs):
-		context = self.upload(request)
-		return render(request, 'stickoverflow/result_view_test.html', context)
+		response = "<script>alert('잘못된 접근입니다!');window.history.back();</script>"
+		return HttpResponse(response)
 
 	def post(self, request, *args, **kwargs):
-		context = self.upload(request)
-		return render(request, 'stickoverflow/result_view_test.html', context)
-
-	# file_upload part
-	def upload(self, request):
-		# print(File.objects.all().delete())
 		fs = FileSystemStorage()
-		form = UploadForm(data = request.POST)
-		context = {'form': form }
 		user_id = ''
 
 		if "user" in request.session:
 			user_id = request.session['user']
 
-		if user_id and not fs.exists(user_id + '/'):
-			mkdir(fs.path(user_id + '/'))
+		file_no = request.POST['file_no']
+		file = File.objects.filter(file_no__iexact = file_no)
+		file_full_path = file[0].file_path + file[0].file_name
+		option = request.POST['option']
 
-		if request.method == 'POST' and request.FILES['file']:
-			# File Save
-			uploaded_file = request.FILES['file']
-			file_full_name = '{}/{}'.format(user_id, uploaded_file)
-			real_name = fs.save(file_full_name, uploaded_file)
-			# DB
-			file_name = real_name[len(user_id) + 1:]
-			file_path = '{}/'.format(user_id)
-			file_description = request.POST['description']
-			file = File(user_id = user_id, file_no = len(File.objects.all()), file_name = file_name, file_path = file_path, file_description = file_description)
-			file.save()
-			del request.FILES['file']
+		if len(file) > 1:
+			response = "<script>alert('잘못된 접근입니다!');window.history.back();</script>"
+			return HttpResponse(response)
 
-		files = File.objects.filter(user_id__iexact = user_id)
+		real_path = fs.path(file_full_path)
+		graph_data = result(real_path, option, x_label_col = '사용일자', y_label_col = '승차총승객수')
+		graph_data = get_graph_data(graph_data, options = {'title' : file[0].file_name[:-4]})
+		print(graph_data)
+		context = {'graph_data' : graph_data}
 
-		if files:
-			file_list = []
-
-			for f in files:
-				file_name = '{} <{}>'.format(f.file_name[:-4], f.file_no)
-				file_type = f.file_name[-3:]
-				file_desc = f.file_description
-
-				tmp = [file_name, file_type, file_desc]
-				file_list.append(tmp)
-
-			context['file_list'] = file_list
-
-
-		return context
+		return render(request, 'stickoverflow/result_view_test.html', context)
