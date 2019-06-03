@@ -14,6 +14,8 @@
 	<button type = "submit">Upload File</button>
 </form>
 {% if file_list %}
+<form method="post" action='{% url 'result_view_test' %}'>
+{% csrf_token %}
 <table id="id01" class="w3-table-all">
 	<tr>
 		<th>File Name</th>
@@ -26,10 +28,21 @@
 		<td>{{ file.0 }}</td>
 		<td>{{ file.1 }}</td>
 		<td>{{ file.2 }}</td>
-		<td><input type = "checkbox" {{checked}}></td>
+		<td><input type = "radio" name='file_no' value="{{ file.3 }}" required></td>
 	</tr>
 {% endfor %}
 
+<tr>
+	<td colspan="3">
+		<input type="radio" name="option" value="0" required>Mean</input>
+		<input type="radio" name="option" value="1" required>Median</input>
+		<input type="radio" name="option" value="2" required>Max</input>
+		<input type="radio" name="option" value="3" required>Min</input>
+		<input type="radio" name="option" value="4" required>Mode</input>
+	</td>
+	<td><button type = "submit">Run</button></td>
+</tr>
+</form>
 
 </table>
 {% endif %}

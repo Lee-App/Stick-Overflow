@@ -62,7 +62,6 @@ class CreateUserView(CreateView):
 class CreateUserView(CreateView): # generic view중에 CreateView를 상속받는다.
 	template_name = 'registration/signup.html' # 템플릿은?
 	form_class =  CreateUserForm # 무슨 폼 사용? >> 내장 회원가입 폼을 커스터마이징 한 것을 사용하는 경우
-    # form_class = UserCreationForm >> 내장 회원가입 폼 사용하는 경우
 	success_url = reverse_lazy('create_user_done') # 성공하면 어디로?
 
 	def post(self, request, *args, **kwargs):
@@ -153,8 +152,9 @@ class UploadView(View):
 				file_name = '{} <{}>'.format(f.file_name[:-4], f.file_no)
 				file_type = f.file_name[-3:]
 				file_desc = f.file_description
+				file_no = f.file_no
 
-				tmp = [file_name, file_type, file_desc]
+				tmp = [file_name, file_type, file_desc, file_no]
 				file_list.append(tmp)
 
 			context['file_list'] = file_list
@@ -224,6 +224,7 @@ class AboutUs(TemplateView):
 class ResultView(TemplateView):
 	template_name = 'stickoverflow/result_view.html'
 
+<<<<<<< HEAD
 # TESTING PAGE
 #class ResultViewTest(TemplateView):
 #	template_name = 'stickoverflow/result_view_test.html'
@@ -276,3 +277,36 @@ class ResultViewTest(View):
 def main_page(request):
 
     return render_to_response('main_page.html')
+=======
+from django.shortcuts import redirect
+from .statistics_model import result, get_graph_data
+
+class ResultViewTest(View):
+	def get(self, request, *args, **kwargs):
+		response = "<script>alert('잘못된 접근입니다!');window.history.back();</script>"
+		return HttpResponse(response)
+
+	def post(self, request, *args, **kwargs):
+		fs = FileSystemStorage()
+		user_id = ''
+
+		if "user" in request.session:
+			user_id = request.session['user']
+
+		file_no = request.POST['file_no']
+		file = File.objects.filter(file_no__iexact = file_no)
+		file_full_path = file[0].file_path + file[0].file_name
+		option = request.POST['option']
+
+		if len(file) > 1:
+			response = "<script>alert('잘못된 접근입니다!');window.history.back();</script>"
+			return HttpResponse(response)
+
+		real_path = fs.path(file_full_path)
+		graph_data = result(real_path, option, x_label_col = '사용일자', y_label_col = '승차총승객수')
+		graph_data = get_graph_data(graph_data, options = {'title' : file[0].file_name[:-4]})
+		print(graph_data)
+		context = {'graph_data' : graph_data}
+
+		return render(request, 'stickoverflow/result_view_test.html', context)
+>>>>>>> 0d4b32befb926170a5affc7a9e969d2fc78ea548
