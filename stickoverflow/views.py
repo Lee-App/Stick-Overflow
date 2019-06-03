@@ -228,56 +228,51 @@ class ResultView(TemplateView):
 #class ResultViewTest(TemplateView):
 #	template_name = 'stickoverflow/result_view_test.html'
 
-class ResultViewTest(View):
-	def get(self, request, *args, **kwargs):
-		context = self.upload(request)
-		return render(request, 'stickoverflow/result_view_test.html', context)
+class ResultViewTest(View):	
+	def data_json(request):
 
-	def post(self, request, *args, **kwargs):
-		context = self.upload(request)
-		return render(request, 'stickoverflow/result_view_test.html', context)
+    Fluctuation_ratio = 50  # 등락비율(%)
 
-	# file_upload part
-	def upload(self, request):
-		# print(File.objects.all().delete())
-		fs = FileSystemStorage()
-		form = UploadForm(data = request.POST)
-		context = {'form': form }
-		user_id = ''
+    ratio = Fluctuation_ratio / float(100)
 
-		if "user" in request.session:
-			user_id = request.session['user']
+    init_cost = 1000000  # 백만원
 
-		if user_id and not fs.exists(user_id + '/'):
-			mkdir(fs.path(user_id + '/'))
+    Counts = [None, ]
 
-		if request.method == 'POST' and request.FILES['file']:
-			# File Save
-			uploaded_file = request.FILES['file']
-			file_full_name = '{}/{}'.format(user_id, uploaded_file)
-			real_name = fs.save(file_full_name, uploaded_file)
-			# DB
-			file_name = real_name[len(user_id) + 1:]
-			file_path = '{}/'.format(user_id)
-			file_description = request.POST['description']
-			file = File(user_id = user_id, file_no = len(File.objects.all()), file_name = file_name, file_path = file_path, file_description = file_description)
-			file.save()
-			del request.FILES['file']
+    Costs = ['주식가격',]
 
-		files = File.objects.filter(user_id__iexact = user_id)
+    for i in range(1,101):
 
-		if files:
-			file_list = []
+        Counts.append(str(i))
 
-			for f in files:
-				file_name = '{} <{}>'.format(f.file_name[:-4], f.file_no)
-				file_type = f.file_name[-3:]
-				file_desc = f.file_description
+        if random.choice((True, False)):
 
-				tmp = [file_name, file_type, file_desc]
-				file_list.append(tmp)
+            init_cost += init_cost * ratio
 
-			context['file_list'] = file_list
+            Costs.append(init_cost)
+
+        else:
+
+            init_cost -= init_cost * ratio
+
+            Costs.append(init_cost)
+
+    data = {
+
+        'columns': [
+
+            Counts,
+
+            Costs,
+
+        ]
+
+    }
+
+    return HttpResponse(json.dumps(data),content_type='text/json')
 
 
-		return context
+
+def main_page(request):
+
+    return render_to_response('main_page.html')
