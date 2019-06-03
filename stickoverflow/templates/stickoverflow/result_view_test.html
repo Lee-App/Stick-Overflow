@@ -6,26 +6,13 @@
   google.charts.load('current', {'packages':['corechart']});
   google.charts.setOnLoadCallback(drawVisualization); // 여기서 drawVisualization은 아래에서 선언할 함수 명이다.
 
-  function drawVisualization() { // 함수명이 있다.
-    var data = google.visualization.arrayToDataTable([
-    ['a','b','c','d','e','f','g'],
-    [1,2,3,4,5,6,7],
-    [8,9,10,11,12,13,14],
-    [15,16,17,18,19,20,21],
-    [22,23,24,25,26,27,28],
-    [29,30,31,32,33,34,35]
-    ]);
+  function drawVisualization() {
+    //JSON.parse(str)
+    var str = '{ "chartType": "LineChart", "dataTable": [["A", "Germany"], ["B", 700], ["C", 800], ["D", 600], ["E", 100]], "options": {"title": "Countries"}, "containerId": "chart_div" }';
+    var obj = JSON.parse(str);
+    var wrapper = new google.visualization.ChartWrapper(obj);
 
-    var options = {
-      title : 'Graph Testing',
-      vAxis : {title: 'V'},
-      hAxis : {title: 'H'},
-      seriesType: 'bars', // 그래프 타입 정할 수 있어요
-      series : {5: {type: 'line'}}
-    };
-
-    var chart = new google.visualization.ComboChart (document.getElementById('chart_div'));
-    chart.draw(data, options);
+    wrapper.draw();
   }
 </script>
 <h1>{{ request.session.user }}'s Result_View_Page</h1>

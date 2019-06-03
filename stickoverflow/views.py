@@ -62,7 +62,6 @@ class CreateUserView(CreateView):
 class CreateUserView(CreateView): # generic view중에 CreateView를 상속받는다.
 	template_name = 'registration/signup.html' # 템플릿은?
 	form_class =  CreateUserForm # 무슨 폼 사용? >> 내장 회원가입 폼을 커스터마이징 한 것을 사용하는 경우
-    # form_class = UserCreationForm >> 내장 회원가입 폼 사용하는 경우
 	success_url = reverse_lazy('create_user_done') # 성공하면 어디로?
 
 	def post(self, request, *args, **kwargs):
