@@ -1,5 +1,5 @@
 a {
-    color: black;    
+    color: black;
 }
 
 .w3-table,.w3-table-all {border-collapse:collapse;border-spacing:0;width:100%;display:table;}
@@ -12,3 +12,7 @@ a {
 .w3-centered tr th,.w3-centered tr td{text-align:center}
 .w3-table td,.w3-table th,.w3-table-all td,.w3-table-all th{padding:8px 8px;display:table-cell;text-align:left;vertical-align:top}
 .w3-table th:first-child,.w3-table td:first-child,.w3-table-all th:first-child,.w3-table-all td:first-child{padding-left:16px}
+
+.fieldWrapper {}
+.field_label_tag {width:20%; float:left; text-align: center; margin-bottom: 10px}
+.field_label {width:80%; float:right; text-align: left; margin-bottom: 10px}

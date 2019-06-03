@@ -6,7 +6,6 @@
   google.charts.load('current', {'packages':['corechart']});
   google.charts.setOnLoadCallback(drawVisualization); // 여기서 drawVisualization은 아래에서 선언할 함수 명이다.
 
-<<<<<<< HEAD
   function drawVisualization() { // 함수명이 있다.
     var data = google.visualization.arrayToDataTable([
     ['a','b','c','d','e','f','g'],
@@ -27,14 +26,13 @@
 
     var chart = new google.visualization.ComboChart (document.getElementById('chart_div'));
     chart.draw(data, options);
-=======
   function drawVisualization() {
     var str = '{{ graph_data }}';
     var obj = JSON.parse(str.replace(/&quot;/g,'"'));
     var wrapper = new google.visualization.ChartWrapper(obj);
 
     wrapper.draw();
->>>>>>> 0d4b32befb926170a5affc7a9e969d2fc78ea548
+
   }
 </script>
 <h1>{{ request.session.user }}'s Result_View_Page</h1>

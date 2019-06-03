@@ -224,60 +224,37 @@ class AboutUs(TemplateView):
 class ResultView(TemplateView):
 	template_name = 'stickoverflow/result_view.html'
 
-<<<<<<< HEAD
 # TESTING PAGE
 #class ResultViewTest(TemplateView):
 #	template_name = 'stickoverflow/result_view_test.html'
 
-class ResultViewTest(View):	
+class ResultViewTest(View):
+
 	def data_json(request):
 
-    Fluctuation_ratio = 50  # 등락비율(%)
+		Fluctuation_ratio = 50  # 등락비율(%)
+		ratio = Fluctuation_ratio / float(100)
+		init_cost = 1000000  # 백만원
+		Counts = [None, ]
+		Costs = ['주식가격',]
+		for i in range(1,101):
+			Counts.append(str(i))
+			if random.choice((True, False)):
+				init_cost += init_cost * ratio
+				Costs.append(init_cost)
+			else:
+				init_cost -= init_cost * ratio
+				Costs.append(init_cost)
+				data = {'columns': [Counts, Costs, ]}
 
-    ratio = Fluctuation_ratio / float(100)
-
-    init_cost = 1000000  # 백만원
-
-    Counts = [None, ]
-
-    Costs = ['주식가격',]
-
-    for i in range(1,101):
-
-        Counts.append(str(i))
-
-        if random.choice((True, False)):
-
-            init_cost += init_cost * ratio
-
-            Costs.append(init_cost)
-
-        else:
-
-            init_cost -= init_cost * ratio
-
-            Costs.append(init_cost)
-
-    data = {
-
-        'columns': [
-
-            Counts,
-
-            Costs,
-
-        ]
-
-    }
-
-    return HttpResponse(json.dumps(data),content_type='text/json')
+		return HttpResponse(json.dumps(data),content_type='text/json')
 
 
 
 def main_page(request):
 
     return render_to_response('main_page.html')
-=======
+
 from django.shortcuts import redirect
 from .statistics_model import result, get_graph_data
 
@@ -309,4 +286,3 @@ class ResultViewTest(View):
 		context = {'graph_data' : graph_data}
 
 		return render(request, 'stickoverflow/result_view_test.html', context)
->>>>>>> 0d4b32befb926170a5affc7a9e969d2fc78ea548
