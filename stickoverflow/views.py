@@ -251,7 +251,7 @@ class ResultViewTest(View):
 		real_path = fs.path(file_full_path)
 		graph_data = result(real_path, option, x_label_col = '사용일자', y_label_col = '승차총승객수')
 		graph_data = get_graph_data(graph_data, options = {'title' : file[0].file_name[:-4]})
-		print(graph_data)
+		
 		context = {'graph_data' : graph_data}
 
 		return render(request, 'stickoverflow/result_view_test.html', context)
