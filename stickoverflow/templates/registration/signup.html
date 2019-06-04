@@ -1,10 +1,23 @@
 <!-- 회원가입 -->
 {% extends 'stickoverflow/base.html' %}
 {% block content %}
+{% load static %}
+<link rel = "stylesheet" type="text/css" href = "{% static 'stickoverflow/style.css/' %}"/>
+
 <h2> Sign Up </h2>
 <form method="post" action="{% url 'signup' %}">
 {% csrf_token %}
-{{ form.as_p }}
+{% for field in form %}
+    <div class="fieldWrapper">
+        {{ field.errors }}
+        <div class="field_label_tag">
+          {{ field.label_tag }}
+        </div>
+        <div class="field_label">
+          {{ field }}
+        </div>
+    </div>
+{% endfor %}
 <button type="submit">회원가입</button>
 </form>
 

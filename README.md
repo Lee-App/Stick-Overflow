@@ -30,3 +30,8 @@ Adding Main Page design.(now working)
 2019-05-29
 ### 깃 충돌체크 및 클론 체크
 ![0529](https://user-images.githubusercontent.com/39876295/58512731-c3d5d280-81d8-11e9-95f6-38a2ff6ed763.JPG)
+
+------------------
+2019-06-04<br>
+로그인 폼과 회원가입 폼 디자인 완료, 추가사항 있을 시 연락바람.
+![캡처](https://user-images.githubusercontent.com/39876295/58828954-8f9f5d80-8681-11e9-9c7b-bc3e779dc79f.JPG)

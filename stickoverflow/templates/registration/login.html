@@ -1,7 +1,8 @@
 <!-- 로그인 -->
 {% extends 'stickoverflow/base.html' %}
   {% block content %}
-
+  {% load static %}
+  <link rel = "stylesheet" type="text/css" href = "{% static 'stickoverflow/style.css/' %}"/>
   <!-- 로그인 되어있는 경우 -->
   {% if request.session.user %}
   <h2> Welcome, {{ request.session.user }} </h2>
@@ -17,12 +18,24 @@
     <!-- 로그인 폼 -->
   <form method="post" action="{% url 'login' %}">
   {% csrf_token %}
-  {{ form.as_p }}
+  {% for field in form %}
+    <div class="fieldWrapper">
+        {{ field.errors }}
+        <div class="field_label_tag">
+          {{ field.label_tag }}
+        </div>
+        <div class="field_label">
+          {{ field }}
+        </div>
+        <!--{{ field.label_tag }} {{ field }}-->
+    </div>
+{% endfor %}
+  <br>
   <button type="submit">로그인</button>
   </form>
 
   <br>
-  <p>아이디가 없으신가요? <a href="{% url 'signup' %}">회원가입</a></p>
+  <p>아이디가 없으신가요? <a href="{% url 'signup' %}" style = "color : skyblue">회원가입</a></p>
 
   {% endif %}
   {% endblock %}
