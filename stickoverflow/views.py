@@ -7,6 +7,8 @@ from .models import User
 from django.urls import reverse_lazy
 from django.http import HttpResponseRedirect
 
+from django.views.generic.edit import View
+
 # 회원가입 뷰
 class CreateUserView(CreateView):
 	def get(self, request, *args, **kwargs):
@@ -96,7 +98,7 @@ class LogoutView(View):
 	def logout(self, request):
 		request.session['user'] = ''
 		request.session.modified = True
-		
+
 from django.core.files.storage import FileSystemStorage
 
 from django.shortcuts import redirect
@@ -133,7 +135,6 @@ class ResultViewTest(View):
 		return render(request, 'stickoverflow/result_view_test.html', context)
 
 from os import mkdir
-from django.views.generic.edit import View
 from .forms import UploadForm
 from .models import File
 

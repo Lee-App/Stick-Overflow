@@ -1,10 +1,10 @@
 {% extends 'stickoverflow/base.html' %}
 {% block content %}
-<script type="text/javascript" src = "https://www.gstatic.com/charts/loader.js"></script> <!-- gstatic library import-->
+<script type="text/javascript" src = "https://www.gstatic.com/charts/loader.js"></script>
 <script type="text/javascript">
 
   google.charts.load('current', {'packages':['corechart']});
-  google.charts.setOnLoadCallback(drawVisualization); // 여기서 drawVisualization은 아래에서 선언할 함수 명이다.
+  google.charts.setOnLoadCallback(drawVisualization);
 
   function drawVisualization() {
     var str = '{{ graph_data }}';
