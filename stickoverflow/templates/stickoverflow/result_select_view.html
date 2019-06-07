@@ -1,0 +1,47 @@
+{% extends 'stickoverflow/base.html' %}
+{% block content %}
+
+{% if request.session.user %}
+<meta charset="utf-8">
+
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<script src="https://www.w3schools.com/lib/w3.js"></script>
+
+<h2>Result Select</h2>
+
+<form method="post" action='{% url 'result_view' %}'>
+{% csrf_token %}
+<input type='hidden' name='file_no' value='{{ file_no }}'/>
+<table id="id01" class="w3-table-all">
+	<tr>
+		<th>First Column</th>
+	{% for col in columns %}
+		<td><input type="radio" name="column1" value='{{ col }}' required>{{ col }}</input></td>
+	{% endfor %}
+	</tr>
+	<tr>
+		<th>Second Column</th>
+	{% for col in columns %}
+		<td><input type="radio" name="column2" value='{{ col }}' required>{{ col }}</input></td>
+	{% endfor %}
+	</tr>
+	<tr>
+		<td colspan="{{ columns|length }}">
+			<input type="radio" name="option" value="0" required>Mean</input>
+			<input type="radio" name="option" value="1" required>Median</input>
+			<input type="radio" name="option" value="2" required>Max</input>
+			<input type="radio" name="option" value="3" required>Min</input>
+			<input type="radio" name="option" value="4" required>Mode</input>
+		</td>
+		<td><button type = "submit">Run</button></td>
+	</tr>
+</table>
+</form>
+
+</table>
+
+{% else %}
+<p>로그인이 필요합니다!</p>
+{% endif %}
+
+{% endblock %}

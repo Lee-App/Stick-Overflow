@@ -6,6 +6,10 @@ from json import dumps
 
 option_name = ['Mean', 'Median', 'Max', 'Min', 'Mode']
 
+def get_column_names(file_path):
+    df = read_csv(file_path)
+    return list(df.columns)
+
 # return list
 def result(file_path, option = 0, x_label_col = 1, y_label_col = 2):
     df = read_csv(file_path)

@@ -100,39 +100,8 @@ class LogoutView(View):
 		request.session.modified = True
 
 from django.core.files.storage import FileSystemStorage
-
 from django.shortcuts import redirect
 from django.http import HttpResponse
-from .statistics_model import result, get_graph_data
-
-class ResultViewTest(View):
-	def get(self, request, *args, **kwargs):
-		response = "<script>alert('잘못된 접근입니다!');window.history.back();</script>"
-		return HttpResponse(response)
-
-	def post(self, request, *args, **kwargs):
-		fs = FileSystemStorage()
-		user_id = ''
-
-		if "user" in request.session:
-			user_id = request.session['user']
-
-		file_no = request.POST['file_no']
-		file = File.objects.filter(file_no__iexact = file_no)
-		file_full_path = file[0].file_path + file[0].file_name
-		option = request.POST['option']
-
-		if len(file) > 1:
-			response = "<script>alert('잘못된 접근입니다!');window.history.back();</script>"
-			return HttpResponse(response)
-
-		real_path = fs.path(file_full_path)
-		graph_data = result(real_path, option, x_label_col = '사용일자', y_label_col = '승차총승객수')
-		graph_data = get_graph_data(graph_data, options = {'title' : file[0].file_name[:-4]})
-
-		context = {'graph_data' : graph_data}
-
-		return render(request, 'stickoverflow/result_view_test.html', context)
 
 from os import mkdir
 from .forms import UploadForm
@@ -193,6 +162,68 @@ class UploadView(View):
 
 		return context
 
+from .statistics_model import get_column_names
+
+class ResultSelectView(View):
+	def get(self, request, *args, **kwargs):
+		response = "<script>alert('잘못된 접근입니다!');window.history.back();</script>"
+		return HttpResponse(response)
+
+	def post(self, request, *args, **kwargs):
+		fs = FileSystemStorage()
+		user_id = ''
+
+		if "user" in request.session:
+			user_id = request.session['user']
+
+		file_no = request.POST['file_no']
+		file = File.objects.filter(file_no__iexact = file_no)
+		file_full_path = file[0].file_path + file[0].file_name
+
+		if len(file) > 1 or user_id == '':
+			response = "<script>alert('잘못된 접근입니다!');window.history.back();</script>"
+			return HttpResponse(response)
+
+		real_path = fs.path(file_full_path)
+		columns = get_column_names(real_path)
+		context = {'columns' : columns, 'file_no':file_no}
+
+		return render(request, 'stickoverflow/result_select_view.html', context)
+
+from .statistics_model import result, get_graph_data
+
+class ResultView(View):
+	def get(self, request, *args, **kwargs):
+		response = "<script>alert('잘못된 접근입니다!');window.history.back();</script>"
+		return HttpResponse(response)
+
+	def post(self, request, *args, **kwargs):
+		fs = FileSystemStorage()
+		user_id = ''
+
+		if "user" in request.session:
+			user_id = request.session['user']
+
+		file_no = request.POST['file_no']
+		file = File.objects.filter(file_no__iexact = file_no)
+		file_full_path = file[0].file_path + file[0].file_name
+
+		if len(file) > 1:
+			response = "<script>alert('잘못된 접근입니다!');window.history.back();</script>"
+			return HttpResponse(response)
+
+		option = request.POST['option']
+		column1 = request.POST['column1']
+		column2 = request.POST['column2']
+
+		real_path = fs.path(file_full_path)
+		graph_data = result(real_path, option, x_label_col = column1, y_label_col = column2)
+		graph_data = get_graph_data(graph_data, options = {'title' : file[0].file_name[:-4]})
+
+		context = {'graph_data' : graph_data}
+
+		return render(request, 'stickoverflow/result_view.html', context)
+
 from django.views.generic.base import TemplateView
 
 class RegisteredView(TemplateView):
@@ -203,6 +234,3 @@ class IndexView(TemplateView):
 
 class AboutUs(TemplateView):
 	template_name = 'stickoverflow/aboutus.html'
-
-class ResultView(TemplateView):
-	template_name = 'stickoverflow/result_view.html'
