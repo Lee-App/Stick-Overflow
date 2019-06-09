@@ -7,7 +7,7 @@ Adding Main Page design.(now working)
 * 메인 페이지 구성 참고사이트(https://www.socialbakers.com/?v=6a&utm_expid=.4c1VR9dJQZmyTzdF5kzbaQ.1&utm_referrer=https%3A%2F%2Fbrunch.co.kr%2F%40okwinus%2F12)
 ------------------
 # 2019-06-09<br>
-##메인 페이지 한글화 및 내용 수정, 구성 변경
+## 메인 페이지 한글화 및 내용 수정, 구성 변경
 ![fixed](https://user-images.githubusercontent.com/39876295/59165228-b400ab80-8b53-11e9-96d4-753550973134.png)
 ------------------
 # 2019-06-04<br>
