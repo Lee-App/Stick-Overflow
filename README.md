@@ -35,3 +35,8 @@ Adding Main Page design.(now working)
 2019-06-04<br>
 로그인 폼과 회원가입 폼 디자인 완료, 추가사항 있을 시 연락바람.
 ![캡처](https://user-images.githubusercontent.com/39876295/58828954-8f9f5d80-8681-11e9-9c7b-bc3e779dc79f.JPG)
+
+------------------
+2019-06-09<br>
+메인 페이지 한글화 및 내용 수정, 구성 변경
+![fixed](https://user-images.githubusercontent.com/39876295/59165228-b400ab80-8b53-11e9-96d4-753550973134.png)
