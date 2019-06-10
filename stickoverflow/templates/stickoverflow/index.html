@@ -2,54 +2,69 @@
 {% block content %}
 
 <style>
-	.inner { height : 200px;}
+	.inner { }
 	.img_setting {
 	 width : 100px;
 	 height : 100px;
 	 margin:50px;
 	}
 
-	.introduce1 {text-align: left;
-		position: relative;
+	.introduce1 {
 		width: 100%;
-		height: 200px;
 		padding: 20px;
+		height: 300px;
 	}
-	.introduce2 {text-align: right;
-		position: relative;
+	.introduce2 {
 		width: 100%;
-		height: 200px;
 		padding: 20px;
+		height: 300px;
 	}
-	.introduce3 {text-align: left;
-		position: relative;
+	.introduce3 {
 		width: 100%;
-		height: 200px;
 		padding: 20px;
+		height: 300px;
 	}
 	.inner-body-image {text-align: center}
 	.inner-main {text-align: center}
 
 	.introduce1-image {float:left;}
-	.introduce1-body {float:left; padding:20px;}
-
-	.introduce2-image {float:right;}
-	.introduce2-body {float:right; padding:20px;}
-
-	.introduce3-image {float:left;}
-	.introduce3-body {float:left; padding:20px;}
-
-	.intro-head {font-size: xx-large;
+	.introduce1-body {
+		text-align: center;
+		padding:20px;
+		position: relative;
 
 	}
-	.intro-body {font-size: medium;
+
+	.introduce2-image {float:left;}
+	.introduce2-body {
+		text-align: center;
+		padding:20px;
+		position: relative;
+
+	}
+
+	.introduce3-image {float:left;}
+	.introduce3-body {
+		text-align: center;
+		padding:20px;
+		position: relative;
+
+	}
+
+	.intro-head {
+		font-size: xx-large;
+		font-weight: bold;
+	}
+	.intro-body {
+		font-size: medium;
+		font-weight: 550;
 	}
 </style>
 
 <div class = "inner">
 	<div class = "inner-main">
 		<h1>
-			Stick Overflow
+			StickOverflow
 		</h1>
 		<h3>
 			Analysis Your Data<br>
@@ -57,41 +72,50 @@
 	</div>
 
 	<div class = "inner-body-image">
-		<img class = "img_setting"; src = "https://ifh.cc/g/CRhiI.png"></img>
-		<img class = "img_setting"; src = "https://ifh.cc/g/oZE3J.png"></img>
-		<img class = "img_setting"; src = "https://ifh.cc/g/1jCwU.png"></img>
+		<br><br>
+		<h2>StickOverflow 에 오신것을 환영합니다</h2>
 	</div>
 
-	<div class = "introduce1">
-		<div class = "introduce1-image">
-			<img class = "img_setting"; src = "https://ifh.cc/g/CRhiI.png"></img>
-		</div>
+	<hr>
 
+	<div class = "introduce1">
 		<div class = "introduce1-body">
-			<p class = "intro-head">It's Free to Use!</p>
-			<p class = "intro-body">We provide this platform for free.</p>
+			<p class = "intro-head">무료로 제공됩니다</p>
+			<p class = "intro-body">저희 웹 페이지에서는 고객님의 데이터를 분석하여 시각화를 진행해서 <br>
+				고객님이 가지고있는 데이터를 보기좋게 나타내어줍니다. 그리고 이용은 무료로 체험해 보실 수 있습니다.
+			</p>
+		</div>
+		<div class = "introduce1-image">
+			<!--<img class = "img_setting"; src = "https://ifh.cc/g/CRhiI.png"></img>-->
+			<p></p>
 		</div>
 	</div>
 
 	<div class = "introduce2">
 		<div class = "introduce2-image">
-			<img class = "img_setting"; src = "https://ifh.cc/g/oZE3J.png"></img>
+			<!--<img class = "img_setting"; src = "https://ifh.cc/g/oZE3J.png"></img>-->
 		</div>
 
 		<div class = "introduce2-body">
-			<p class = "intro-head">It's able to download! as PDF.</p>
-			<p class = "intro-body">If you want to show your analysis output as PDF or something. <br>you can click the download button to download your result.</p>
+			<p class = "intro-head">다양한 분석이 가능합니다</p>
+			<p class = "intro-body">고객님의 데이터에서 원하는 방향으로 분석이 가능합니다. 저희 웹 페이지는 기본적으로<br>
+				기본적으로 시계열 데이터를 분석해서 시각화 해드립니다. <br>
+				하지만 추후 업데이트를 통해 시계열 뿐 아니라 다른 분석모델도 추가할 예정입니다.
+			</p>
 		</div>
 	</div>
 
 	<div class = "introduce3">
 		<div class = "introduce3-image">
-			<img class = "img_setting"; src = "https://ifh.cc/g/1jCwU.png"></img>
+			<!--<img class = "img_setting"; src = "https://ifh.cc/g/1jCwU.png"></img>-->
 		</div>
 
 		<div class ="introduce3-body">
-			<p class = "intro-head">Re-Useful!</p>
-			<p class = "intro-body">Your data and analysised data is saving on your account. <br>so, whenever you want that data or PDF, you can download and reuse!</p>
+			<p class = "intro-head">편리합니다</p>
+			<p class = "intro-body">고객님의 데이터는 데이터베이스에 저장되어 고객님은 저희 웹 페이지에서 단 한번만<br>
+				데이터를 업로드 해놓으시면 다시 데이터를 업로드 할 필요없이 언제 어디서든 저희 웹 페이지에서 고객님의 <br>
+				분석된 데이터를 보실 수 있습니다.
+			</p>
 		</div>
 	</div>
 </div>
